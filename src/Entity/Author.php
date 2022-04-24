@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\AuthorRepository;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
@@ -22,7 +21,7 @@ class Author
     private string $lastName;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private ?Integer $age = null;
+    private ?integer $age = null;
 
     /**
      * @return int|null
