@@ -21,7 +21,7 @@ class Author
     private string $lastName;
 
     #[ORM\Column(type: 'integer', nullable: true)]
-    private ?integer $age = null;
+    private ?int $age = null;
 
     /**
      * @return int|null
