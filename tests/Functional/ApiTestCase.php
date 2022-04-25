@@ -23,7 +23,7 @@ abstract class ApiTestCase extends WebTestCase
         $client = static::createClient();
 
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $this->testUser = $userRepository->findBy(array('email' => $username));
+        $this->testUser = $userRepository->findOneBy(array('email' => $username));
         $client->loginUser($this->testUser);
 
         return $client;
