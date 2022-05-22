@@ -26,7 +26,7 @@ La fichier [docker.env](docker.env) contient la liste des variables d'environnem
 
 ## 2. Utilisatation de docker compose
 ### 2.1 Initiliasation de l'environnement
-`docker-compose up -d`
+`docker-compose up -d --build`
 
 ### 2.2 Arreter l'environnement
 `docker-compose stop`
