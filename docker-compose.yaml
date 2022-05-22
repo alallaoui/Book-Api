@@ -1,38 +1,16 @@
 version: '3.8'
 services:
-  db:
-    image: mysql:8.0
-    cap_add:
-      - SYS_NICE
-    restart: always
-    environment:
-      - MYSQL_DATABASE=books_api
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=db_user
-      - MYSQL_PASSWORD=db_user_pass
+  mongodb:
+    image: mongo
     ports:
-      - '3306:3306'
+      - 27017:27017
     volumes:
-      - db:/var/lib/mysql
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      - books-api-network
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: pma
-    links:
-      - db
+      - ~/apps/mongo:/data/db
     environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_ARBITRARY: 1
-    restart: always
-    ports:
-      - 8081:80
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
     networks:
       - books-api-network
-
-
   php:
     build:
       context: .

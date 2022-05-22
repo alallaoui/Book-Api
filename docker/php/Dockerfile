@@ -16,7 +16,8 @@ RUN apt-get update && apt-get install -y \
            libxrender1 \
            xfonts-75dpi \
            xfonts-base \
-           wget
+           wget \
+           libssl-dev
 
 # Set timezone
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
@@ -25,9 +26,9 @@ RUN "date"
 
 RUN docker-php-ext-install pdo pdo_mysql opcache zip curl mbstring xml intl
 
-RUN pecl install apcu
-
-RUN docker-php-ext-enable apcu
+RUN pecl install apcu mongodb
+RUN echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/mongodb.ini
+RUN docker-php-ext-enable apcu mongodb
     
 WORKDIR /usr/src/app
     

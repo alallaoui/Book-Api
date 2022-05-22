@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,12 +20,8 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class UserRepository extends DocumentRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, User::class);
-    }
 
     /**
      * @throws ORMException
@@ -81,15 +78,5 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('y')
-            ->andWhere('y.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+
 }

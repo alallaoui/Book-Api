@@ -2,10 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Author;
-use App\Entity\Book;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Document\Author;
+use App\Document\Book;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -14,16 +13,16 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Doctrine\Bundle\MongoDBBundle\Form\Type\DocumentType;
 
 class BookType extends AbstractType
 {
     /**
      * BookType constructor.
      */
-    public function __construct(private readonly EntityManagerInterface $em)
+    public function __construct(private readonly DocumentManager $dm)
     {
     }
 
@@ -73,7 +72,7 @@ class BookType extends AbstractType
                     'maximum' => 1000,
                 ],
             ])
-            ->add('author', EntityType::class, [
+            ->add('author', DocumentType::class, [
                 'class' => Author::class,
                 'required' => true,
                 'invalid_message' => 'Author id does not exist',
@@ -95,8 +94,8 @@ class BookType extends AbstractType
     {
         $book = $event->getData();
         if ($event->getForm()->isValid()) {
-            $this->em->persist($book);
-            $this->em->flush();
+            $this->dm->persist($book);
+            $this->dm->flush();
         }
     }
 

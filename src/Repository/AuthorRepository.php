@@ -2,27 +2,23 @@
 
 namespace App\Repository;
 
-use App\Entity\Author;
+use App\Document\Author;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Author>
+ * @extends DocumentRepository
  *
  * @method Author|null find($id, $lockMode = null, $lockVersion = null)
  * @method Author|null findOneBy(array $criteria, array $orderBy = null)
  * @method Author[]    findAll()
  * @method Author[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AuthorRepository extends ServiceEntityRepository
+class AuthorRepository extends DocumentRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Author::class);
-    }
-
     /**
      * @throws ORMException
      * @throws OptimisticLockException

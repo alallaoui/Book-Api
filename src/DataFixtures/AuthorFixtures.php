@@ -2,11 +2,11 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Author;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Document\Author;
+use Doctrine\Bundle\MongoDBBundle\Fixture\Fixture as MongoFixture;
 use Doctrine\Persistence\ObjectManager;
 
-class AuthorFixtures extends Fixture
+class AuthorFixtures extends MongoFixture
 {
     public function load(ObjectManager $manager)
     {

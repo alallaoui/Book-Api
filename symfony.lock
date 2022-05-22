@@ -83,6 +83,18 @@
     "doctrine/migrations": {
         "version": "3.5.0"
     },
+    "doctrine/mongodb-odm": {
+        "version": "2.4.2"
+    },
+    "doctrine/mongodb-odm-bundle": {
+        "version": "4.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "4.1",
+            "ref": "68562ca89de9f97a952535cd3eee49f5541b76a7"
+        }
+    },
     "doctrine/orm": {
         "version": "2.12.1"
     },
@@ -92,11 +104,17 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
+    "firebase/php-jwt": {
+        "version": "v6.2.0"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.7"
     },
     "fzaninotto/faker": {
         "version": "v1.5.0"
+    },
+    "jean85/pretty-package-versions": {
+        "version": "2.0.5"
     },
     "laminas/laminas-code": {
         "version": "4.5.1"
@@ -118,6 +136,9 @@
         "files": [
             "config/packages/lexik_jwt_authentication.yaml"
         ]
+    },
+    "mongodb/mongodb": {
+        "version": "1.12.0"
     },
     "myclabs/deep-copy": {
         "version": "1.11.0"

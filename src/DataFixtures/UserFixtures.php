@@ -2,12 +2,12 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\User;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Document\User;
+use Doctrine\Bundle\MongoDBBundle\Fixture\Fixture as MongoFixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends MongoFixture
 {
     public function __construct(private readonly UserPasswordHasherInterface $hasher)
     {

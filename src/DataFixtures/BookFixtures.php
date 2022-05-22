@@ -2,21 +2,22 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Author;
-use App\Entity\Book;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Document\Author;
+use App\Document\Book;
+use Doctrine\Bundle\MongoDBBundle\Fixture\Fixture as MongoFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\ODM\MongoDB\DocumentManager;
 
-class BookFixtures extends Fixture implements DependentFixtureInterface
+class BookFixtures extends MongoFixture implements DependentFixtureInterface
 {
-    public function __construct(private readonly EntityManagerInterface $em)
+    public function __construct(private readonly DocumentManager $dm)
     {
     }
     public function load(ObjectManager $manager)
     {
-        $authors = $this->em->getRepository(Author::class)->findAll();
+        $authors = $this->dm->getRepository(Author::class)->findAll();
         for ($i = 0; $i < 10; $i++) {
             $book = new Book();
             $book->setTitle('title ' . $i);

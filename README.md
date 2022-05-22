@@ -8,7 +8,7 @@ Il est composé d'un environnement de développement web fournissant un serveur 
 - Docker
 - Nginx:1.19.0
 - PHP 8.1
-- Mysql 8.0
+- Mongodb 5.0.8
 
 ## 1. Installation de l'environnement
 ### 1.1 Prérequis  
@@ -46,28 +46,24 @@ Ensuite dans le dossier /usr/src/app executer la commande
 ### 3.3 Génération des assets
 `php bin/console assets:install`
 
-### 3.4 Création de la base de donnée
-`php bin/console d:d:c`
 
-### 3.5 Création des tables
-`php bin/console d:m:m`
-
-### 3.6 Ajouter les jeux de données
-`php bin/console d:f:l`
-
-### 3.6 Génération des clés
-`php bin/console lexik:jwt:generate-keypair`
+### 3.4 Ajouter les jeux de données
+` php bin/console doctrine:mongodb:fixtures:load
+`
 
 ## 4 Accès
 ### 4.1 Documentation de l'API
 Pour accèder à la documentation de l'API, vous pouvez utiliser l'URL [http://localhost:9185/api/doc](http://localhost:9185/api/doc)
 
-### 4.2 Mysql
-- localhost:3306
+### 4.2 MongoDb server
+Se connecter au conteneur `MongoDb`
+
+`docker exec -it books-api_mongodb_1 bash`
+
+Se connecter au serveur `MongoDb`
+`mongo -u root -p --authenticationDatabase admin`
+
+- localhost:27017
 - Username: root (par défaut)
 - Password: root (par défaut)
 
-### 4.3 PhpMyAdmin
-- URL: http://localhost:8081
-- Username: root (par défaut)
-- Password: root (par défaut)

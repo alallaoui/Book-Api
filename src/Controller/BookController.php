@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Book;
+use App\Document\Book;
 use App\Form\BookType;
 use App\Service\Form\FormErrorsSerializer;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,14 +27,14 @@ class BookController extends AbstractController
      * BookController constructor.
      */
     public function __construct(
-        private readonly EntityManagerInterface $em
+        private readonly DocumentManager $dm
     ) {
     }
 
     #[Route('', name: 'book_list',  methods: ['GET'])]
     public function index(): Response
     {
-        $books = $this->em->getRepository(Book::class)->findAll();
+        $books = $this->dm->getRepository(Book::class)->findAll();
         return $this->json($books, 200, [], [
             'groups' => ['id', 'book']
         ]);
@@ -98,7 +99,7 @@ class BookController extends AbstractController
      *     description="Required values before submit",
      *     @Model(type=BookType::class),
      * )
-     * @ParamConverter("book", class="App\Entity\Book")
+     * @ParamConverter("book", class="App\Document\Book")
      * @OA\Tag(name="books")
      */
     #[Route(path: '/{id}', name: 'book_edit', methods: ['PUT'])]
@@ -129,7 +130,7 @@ class BookController extends AbstractController
      *     response=404,
      *     description="Book was not found",
      * )
-     * @ParamConverter("book", class="App\Entity\Book")
+     * @ParamConverter("book", class="App\Document\Book")
      * @OA\Tag(name="books")
      */
     #[Route(path: '/{id}', name: 'book_view', methods: ['GET'])]
@@ -152,14 +153,14 @@ class BookController extends AbstractController
      *     response=404,
      *     description="Book was not found",
      * )
-     * @ParamConverter("book", class="App\Entity\Book")
+     * @ParamConverter("book", class="App\Document\Book")
      * @OA\Tag(name="books")
      */
     #[Route(path: '/{id}', name: 'book_delete', methods: ['DELETE'])]
-    public function delete(EntityManagerInterface $em, Book $book)
+    public function delete(Book $book)
     {
-        $this->em->remove($book);
-        $em->flush();
+        $this->dm->remove($book);
+        $this->dm->flush();
         return $this->json('Book Has been deleted', 200);
     }
 }
