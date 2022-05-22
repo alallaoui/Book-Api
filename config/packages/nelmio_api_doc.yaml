@@ -13,7 +13,7 @@ nelmio_api_doc:
         security:
             - Bearer: [ ]
         paths:
-            /api/login_check:
+            /api/login:
                 post:
                     tags:
                         - login

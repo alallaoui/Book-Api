@@ -22,10 +22,8 @@ class SecurityController extends AbstractController
         private readonly string $secretKey
     ) {
     }
-
-    /**
-     * @Route("/login", name="login", methods={"POST"})
-     */
+    
+    #[Route(path: '/login', name: 'login', methods: ['POST'])]
     public function login(): Response
     {
         if (null === $this->getUser()) {
